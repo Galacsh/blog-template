@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* Main colors */
+    --color-black: 0 0 0;
+    --color-white: 255 255 255;
+
+    /* Background colors */
+    --color-background-light: var(--color-white);
+    --color-background-dark: var(--color-black);
+  }
+
+  body {
+    @apply bg-light dark:bg-dark text-black-800 dark:text-white-800;
+  }
+}
