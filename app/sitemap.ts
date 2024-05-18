@@ -9,7 +9,7 @@ import type { MetadataRoute } from 'next'
  *     but works properly on build time. (https://github.com/vercel/next.js/issues/59136)
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.BASE_URL as string
+  const baseUrl = process.env.BASE_URL
   const lastModified = new Date()
 
   return [

@@ -5,8 +5,8 @@ import { pretendard, jetbrainsMono } from './fonts'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: process.env.APP_NAME as string,
-  description: process.env.APP_DESCRIPTION as string,
+  title: process.env.APP_NAME,
+  description: process.env.APP_DESCRIPTION,
 }
 
 export default function RootLayout({
