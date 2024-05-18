@@ -37,6 +37,11 @@ const config: Config = {
         900: 'rgb(var(--color-black) / 0.9)',
       },
     },
+    extend: {
+      screens: {
+        '2xl': '1400px',
+      },
+    },
   },
   plugins: [],
 }
