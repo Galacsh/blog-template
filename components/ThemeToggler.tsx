@@ -1,13 +1,19 @@
 'use client'
 
 import { useTheme } from 'next-themes'
+import Moon from '@/public/images/moon.svg'
+import Sun from '@/public/images/sun.svg'
+import Image from 'next/image'
 
 const ThemeToggler = () => {
   const { theme, setTheme } = useTheme()
 
   return (
-    <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
-      to {theme === 'light' ? 'dark' : 'light'}
+    <button
+      className="hover:opacity-50 h-6 w-6"
+      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+    >
+      <Image alt="Theme toggler" src={theme === 'light' ? Moon : Sun} />
     </button>
   )
 }
