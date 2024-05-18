@@ -1,9 +1,14 @@
+import defaultTheme from 'tailwindcss/defaultTheme'
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
   darkMode: 'selector',
   content: ['./components/**/*.{js,ts,jsx,tsx}', './app/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    fontFamily: {
+      sans: ['var(--font-pretendard)', ...defaultTheme.fontFamily.sans],
+      mono: ['var(--font-jetbrains-mono)', ...defaultTheme.fontFamily.mono],
+    },
     colors: {
       dark: 'rgb(var(--color-background-dark))',
       light: 'rgb(var(--color-background-light))',

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
-import './globals.css'
 import { Providers } from './providers'
+import { pretendard, jetbrainsMono } from './fonts'
+
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -13,7 +15,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${pretendard.variable} ${jetbrainsMono.variable}`}
+    >
       <body>
         <Providers>{children}</Providers>
       </body>
