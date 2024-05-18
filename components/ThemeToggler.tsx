@@ -7,7 +7,7 @@ const ThemeToggler = () => {
 
   return (
     <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
-      Toggle theme
+      to {theme === 'light' ? 'dark' : 'light'}
     </button>
   )
 }
