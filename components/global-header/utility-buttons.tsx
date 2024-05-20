@@ -1,7 +1,7 @@
 import ThemeToggler from './theme-toggler'
 import SearchButton from './search-button'
 
-const UtilityButtons = () => {
+export default function UtilityButtons() {
   return (
     <div className="flex items-center gap-2 px-4">
       {/* Search button */}
@@ -12,5 +12,3 @@ const UtilityButtons = () => {
     </div>
   )
 }
-
-export default UtilityButtons

@@ -3,7 +3,7 @@
 import { useTheme } from 'next-themes'
 import { MoonStar, Sun } from 'lucide-react'
 
-const ThemeToggler = () => {
+export default function ThemeToggler() {
   const { theme, setTheme } = useTheme()
 
   return (
@@ -18,5 +18,3 @@ const ThemeToggler = () => {
     </button>
   )
 }
-
-export default ThemeToggler

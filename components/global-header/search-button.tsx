@@ -1,6 +1,6 @@
 import { Search } from 'lucide-react'
 
-const SearchButton = () => {
+export default function SearchButton() {
   return (
     <button
       type="button"
@@ -11,5 +11,3 @@ const SearchButton = () => {
     </button>
   )
 }
-
-export default SearchButton

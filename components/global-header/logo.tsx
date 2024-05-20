@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import appIcon from '@/app/icon.png'
 
-const Logo = () => {
+export default function Logo() {
   const router = useRouter()
 
   return (
@@ -20,5 +20,3 @@ const Logo = () => {
     </div>
   )
 }
-
-export default Logo

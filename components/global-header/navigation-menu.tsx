@@ -1,7 +1,7 @@
 import Logo from './logo'
 import Link from 'next/link'
 
-const NavigationMenu = () => {
+export default function NavigationMenu() {
   return (
     <nav className="flex flex-grow items-center gap-4 sm:gap-8 px-4 w-full overflow-hidden whitespace-nowrap overflow-ellipsis">
       {/* Logo */}
@@ -17,5 +17,3 @@ const NavigationMenu = () => {
     </nav>
   )
 }
-
-export default NavigationMenu

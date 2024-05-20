@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import NavigationMenu from './navigation-menu'
 import UtilityButtons from './utility-buttons'
 
-const GlobalHeader = () => {
+export default function GlobalHeader() {
   const pathname = usePathname()
 
   const stickyByPath = useMemo(() => {
@@ -25,5 +25,3 @@ const GlobalHeader = () => {
     </header>
   )
 }
-
-export default GlobalHeader
