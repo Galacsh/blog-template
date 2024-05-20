@@ -3,6 +3,8 @@ import { Providers } from './providers'
 import { pretendard, jetbrainsMono } from './fonts'
 
 import './globals.css'
+import GlobalHeader from '@/components/global-header'
+import GlobalFooter from '@/components/global-footer'
 
 export const metadata: Metadata = {
   title: process.env.APP_NAME,
@@ -21,7 +23,13 @@ export default function RootLayout({
       className={`${pretendard.variable} ${jetbrainsMono.variable}`}
     >
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <div className="flex flex-col min-h-full">
+            <GlobalHeader />
+            <main>{children}</main>
+            <GlobalFooter />
+          </div>
+        </Providers>
       </body>
     </html>
   )

@@ -13,7 +13,21 @@
     --color-background-dark: var(--color-black);
   }
 
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    min-height: 100%;
+    min-width: 100%;
+  }
+
+  /* Default colors */
   body {
     @apply bg-light dark:bg-dark text-black-800 dark:text-white-800;
+  }
+
+  /* Use text-sm by default */
+  body * {
+    @apply text-sm;
   }
 }
