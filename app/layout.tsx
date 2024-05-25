@@ -11,8 +11,8 @@ type Props = Readonly<{
 }>
 
 export const metadata: Metadata = {
-  title: 'SSG Template',
-  description: 'Personal static site generation template',
+  title: process.env.APP_NAME,
+  description: process.env.APP_DESCRIPTION,
 }
 
 export default function AppLayout({ children }: Props) {
