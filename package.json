@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "start": "npm run dev",
     "dev": "next dev --turbo",
     "build": "next build",
-    "start": "serve out",
+    "serve": "serve out",
     "lint": "next lint && prettier . --check",
     "lint-fix": "next lint --fix && prettier . --write"
   },
