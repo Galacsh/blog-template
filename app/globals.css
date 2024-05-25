@@ -30,4 +30,12 @@
   body * {
     @apply text-sm;
   }
+
+  /* Input & Select */
+  input[type='date'],
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
 }
