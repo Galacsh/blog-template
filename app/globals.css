@@ -67,10 +67,21 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
+
+  html,
+  body {
+    @apply h-full w-full min-h-full min-w-full;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+
+  body {
+    @apply font-sans antialiased;
+  }
+
+  * {
+    @apply border-border;
   }
 }
