@@ -1,5 +1,7 @@
-import type { Metadata } from 'next'
+import { pretendard, jetbrainsMono } from './fonts'
 import './globals.css'
+
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'SSG Template',
@@ -12,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={`${pretendard.variable} ${jetbrainsMono.variable}`}>
       <body>{children}</body>
     </html>
   )

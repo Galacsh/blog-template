@@ -1,10 +1,15 @@
+import defaultTheme from 'tailwindcss/defaultTheme'
 import type { Config } from 'tailwindcss'
 
 const config = {
-  darkMode: ['class'],
+  darkMode: ['selector'],
   content: ['./components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}'],
   prefix: '',
   theme: {
+    fontFamily: {
+      sans: ['var(--font-pretendard)', ...defaultTheme.fontFamily.sans],
+      mono: ['var(--font-jetbrains-mono)', ...defaultTheme.fontFamily.mono],
+    },
     container: {
       center: true,
       padding: '2rem',
