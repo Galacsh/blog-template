@@ -1,5 +1,5 @@
-import Logo from './logo'
 import Link from 'next/link'
+import Logo from './logo'
 
 export default function NavigationMenu() {
   return (

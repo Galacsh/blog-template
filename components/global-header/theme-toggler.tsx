@@ -14,7 +14,7 @@ export default function ThemeToggler() {
     >
       <Sun className="h-4 w-4 hidden dark:block stroke-black" />
       <MoonStar className="h-4 w-4 block dark:hidden stroke-white" />
-      <span className="hidden">Toggle theme</span>
+      <span className="sr-only">Toggle theme</span>
     </button>
   )
 }

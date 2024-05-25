@@ -9,7 +9,6 @@ export default function GlobalHeader() {
   const pathname = usePathname()
 
   const stickyByPath = useMemo(() => {
-    console.log(`path: [${pathname}]`)
     if (pathname === '/') return 'sticky top-0'
     return ''
   }, [pathname])
