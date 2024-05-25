@@ -1,5 +1,7 @@
 import { ThemeProvider } from 'next-themes'
-import { pretendard, jetbrainsMono } from './fonts'
+import { pretendard, jetbrainsMono } from '@/app/fonts'
+import { AppHeader } from '@/components/app-header'
+import { AppFooter } from '@/components/app-footer'
 import './globals.css'
 
 import type { Metadata } from 'next'
@@ -13,7 +15,7 @@ export const metadata: Metadata = {
   description: 'Personal static site generation template',
 }
 
-export default function RootLayout({ children }: Props) {
+export default function AppLayout({ children }: Props) {
   return (
     <html
       lang="ko"
@@ -27,7 +29,11 @@ export default function RootLayout({ children }: Props) {
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div vaul-drawer-wrapper="" className="flex flex-col min-h-full">
+            <AppHeader />
+            <main className="flex-1">{children}</main>
+            <AppFooter />
+          </div>
         </ThemeProvider>
       </body>
     </html>
