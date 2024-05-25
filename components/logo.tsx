@@ -13,8 +13,8 @@ export default function Logo() {
       onClick={() => router.push('/')}
     >
       <Image src={appIcon} alt="App Icon" className="size-8" />
-      <div className="h-4 w-[1px] hidden dark:sm:block bg-foreground/30 ml-0.5" />
-      <span className="font-mono font-black hidden sm:block text-black dark:text-white px-2">
+      <div className="h-4 w-[1px] hidden dark:sm:block bg-foreground/30 ml-0.5 mr-2" />
+      <span className="font-mono font-black hidden sm:block text-black dark:text-white">
         {AUTHOR}
       </span>
     </div>
