@@ -1,2 +1,1 @@
 # SSG Template
-
