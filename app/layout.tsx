@@ -32,7 +32,7 @@ export default function AppLayout({ children }: Props) {
         >
           <div vaul-drawer-wrapper="" className="flex flex-col min-h-full">
             <AppHeader />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 container">{children}</main>
             <AppFooter />
           </div>
           <QuickScrollButton />
