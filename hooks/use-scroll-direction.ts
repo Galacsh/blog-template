@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 export function useScrollDirection() {
-  const [y, setY] = useState(window.scrollY)
+  const [y, setY] = useState(0)
   const [direction, setDirection] = useState<'up' | 'down'>('down')
 
   useEffect(() => {
