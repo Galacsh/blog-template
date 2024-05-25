@@ -5,6 +5,7 @@ import { AppFooter } from '@/components/app-footer'
 import './globals.css'
 
 import type { Metadata } from 'next'
+import { QuickScrollButton } from '@/components/quick-scroll-button'
 
 type Props = Readonly<{
   children: React.ReactNode
@@ -34,6 +35,7 @@ export default function AppLayout({ children }: Props) {
             <main className="flex-1">{children}</main>
             <AppFooter />
           </div>
+          <QuickScrollButton />
         </ThemeProvider>
       </body>
     </html>
