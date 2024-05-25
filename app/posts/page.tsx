@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
-import PostList from '@/components/post-list'
-import SearchFilters from '@/components/search-filters'
+import PostList from './post-list'
+import SearchFilters from './search-filters'
 
 import type { Tag, PostPreview } from '@/types'
 

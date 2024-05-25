@@ -1,5 +1,5 @@
-import GlobalHeader from '@/components/global-header'
-import GlobalFooter from '@/components/global-footer'
+import GlobalHeader from './global-header'
+import GlobalFooter from './global-footer'
 import Providers from './providers'
 import { pretendard, jetbrainsMono } from './fonts'
 
