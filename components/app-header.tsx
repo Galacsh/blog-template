@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 
 export function AppHeader() {
   const pathname = usePathname()
-  const shouldBeSticky = useMemo(() => pathname === '/', [pathname])
+  const shouldBeSticky = useMemo(() => ['/', '/posts'].includes(pathname), [pathname])
 
   return (
     <header
@@ -22,7 +22,7 @@ export function AppHeader() {
     >
       <div className="h-16 container flex items-center justify-between space-x-4">
         <NavigationMenu />
-        <div className="flex flex-1 items-center space-x-4 sm:justify-end">
+        <div className="flex items-center space-x-4">
           <CommandMenu />
           <ThemeToggleButton />
         </div>

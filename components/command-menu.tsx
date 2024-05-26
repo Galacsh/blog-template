@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import { useRouter } from 'next/navigation'
-import { LaptopIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons'
+import { LaptopIcon, MagnifyingGlassIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons'
 import { Button } from '@/components/ui/button'
 import {
   CommandDialog,
@@ -49,7 +49,7 @@ export function CommandMenu() {
         type="button"
         variant="outline"
         className={cn(
-          'relative h-8 w-full justify-start rounded-[0.5rem] bg-background text-sm font-normal text-muted-foreground shadow-none sm:w-40 lg:w-60'
+          'relative h-8 w-32 lg:w-60 hidden sm:inline-flex justify-start rounded-[0.5rem] bg-background text-sm font-normal text-muted-foreground shadow-none'
         )}
         onClick={() => setOpen(true)}
       >
@@ -58,6 +58,16 @@ export function CommandMenu() {
         <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
           <span className="text-xs">⌘</span>K
         </kbd>
+      </Button>
+      <Button
+        type="button"
+        variant="outline"
+        size="icon"
+        className="size-8 bg-background sm:hidden"
+        onClick={() => setOpen(true)}
+      >
+        <MagnifyingGlassIcon className="size-4" />
+        <span className="sr-only">Search commands</span>
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Type a command or search..." />
