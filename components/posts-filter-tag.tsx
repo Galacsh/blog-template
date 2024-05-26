@@ -1,16 +1,17 @@
 'use client'
 
-import { useState } from 'react'
 import { FilterLabel } from '@/components/posts-filter-label'
+import { useSearch } from '@/lib/hooks/use-search'
 import { cn } from '@/lib/utils'
-import { Tag } from '@/lib/types'
+
+import type { Tag } from '@/lib/types'
 
 type TagFilterProps = Readonly<{
   available: Tag[]
 }>
 
 export function TagFilter({ available }: TagFilterProps) {
-  const [selected, setSelected] = useState<Tag[]>([])
+  const [selected, setSelected] = useSearch('tags', [], toState, toParam)
 
   return (
     <div className="w-full">
@@ -20,7 +21,7 @@ export function TagFilter({ available }: TagFilterProps) {
           <TagFilterItem
             key={'tag_' + idx}
             tag={tag}
-            isSelected={selected.includes(tag)}
+            isSelected={selected?.includes(tag) || false}
             onSelect={(selectedTag) => setSelected([...selected, selectedTag])}
             onDeselect={(deselected) => setSelected(selected.filter((t) => t !== deselected))}
           ></TagFilterItem>
@@ -28,6 +29,14 @@ export function TagFilter({ available }: TagFilterProps) {
       </div>
     </div>
   )
+}
+
+function toState(val: string | null) {
+  return val?.split(',').map(decodeURIComponent) || []
+}
+
+function toParam(state: Tag[]) {
+  return state?.map(encodeURIComponent).join(',')
 }
 
 type TagFilterItemProps = Readonly<{

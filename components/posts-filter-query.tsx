@@ -1,11 +1,11 @@
 'use client'
 
-import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { FilterLabel } from '@/components/posts-filter-label'
+import { useSearch } from '@/lib/hooks/use-search'
 
 export function QueryFilter() {
-  const [query, setQuery] = useState<string>()
+  const [query, setQuery] = useSearch('query', '', toState, toParam)
 
   return (
     <div className="w-full">
@@ -19,4 +19,12 @@ export function QueryFilter() {
       />
     </div>
   )
+}
+
+function toState(val: string | null) {
+  return val || ''
+}
+
+function toParam(state: string) {
+  return state || null
 }

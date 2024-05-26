@@ -6,15 +6,24 @@ import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { FilterLabel } from '@/components/posts-filter-label'
+import { useToast } from '@/components/ui/use-toast'
+import { useSearch } from '@/lib/hooks/use-search'
 import { format } from 'date-fns/format'
+import { parse } from 'date-fns/parse'
 import { cn } from '@/lib/utils'
-import { useToast } from './ui/use-toast'
-import { SelectSingleEventHandler } from 'react-day-picker'
+
+import type { SelectSingleEventHandler } from 'react-day-picker'
 
 export function DateFilter() {
-  const [from, setFrom] = useState<Date>()
-  const [to, setTo] = useState<Date>()
+  const [from, setFrom] = useSearch('from', undefined, toState, toParam)
+  const [to, setTo] = useSearch('to', undefined, toState, toParam)
   const { toast } = useToast()
+
+  useEffect(() => {
+    if (from && to && from > to) {
+      throw new Error('Invalid date range.')
+    }
+  }, [from, to])
 
   const safeSelectTo = (date: Date | undefined) => {
     if (from && date && from > date) {
@@ -62,6 +71,23 @@ export function DateFilter() {
       />
     </div>
   )
+}
+
+function toState(val: string | null) {
+  if (!val) return undefined
+
+  const date = parse(val, 'yyyy-MM-dd', new Date())
+
+  if (isNaN(date.valueOf()) || date.valueOf() < 0) {
+    throw new Error('Invalid date.')
+  }
+
+  return date
+}
+
+function toParam(state: Date | undefined) {
+  if (!state) return null
+  return format(state, 'yyyy-MM-dd')
 }
 
 type FilterDatePickerProps = Readonly<{
