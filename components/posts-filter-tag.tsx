@@ -7,28 +7,39 @@ import { cn } from '@/lib/utils'
 import type { Tag } from '@/lib/types'
 
 type TagFilterProps = Readonly<{
-  available: Tag[]
+  tags: Tag[]
 }>
 
-export function TagFilter({ available }: TagFilterProps) {
+export function TagFilter({ tags }: TagFilterProps) {
   const [selected, setSelected] = useSearch('tags', [], toState, toParam)
 
-  return (
-    <div className="w-full">
-      <FilterLabel htmlFor="tags">Tags</FilterLabel>
-      <div id="tags" className="flex flex-row flex-wrap gap-2">
-        {available.map((tag, idx) => (
-          <TagFilterItem
-            key={'tag_' + idx}
-            tag={tag}
-            isSelected={selected?.includes(tag) || false}
-            onSelect={(selectedTag) => setSelected([...selected, selectedTag])}
-            onDeselect={(deselected) => setSelected(selected.filter((t) => t !== deselected))}
-          ></TagFilterItem>
-        ))}
+  if (tags.length) {
+    return (
+      <div className="w-full">
+        <FilterLabel htmlFor="tags">Tags</FilterLabel>
+        <div id="tags" className="flex flex-row flex-wrap gap-2">
+          {tags.map((tag, idx) => (
+            <TagFilterItem
+              key={'tag_' + idx}
+              tag={tag}
+              isSelected={selected?.includes(tag) || false}
+              onSelect={(selectedTag) => setSelected([...selected, selectedTag])}
+              onDeselect={(deselected) => setSelected(selected.filter((t) => t !== deselected))}
+            />
+          ))}
+        </div>
       </div>
-    </div>
-  )
+    )
+  } else {
+    return (
+      <div className="w-full">
+        <FilterLabel htmlFor="tags">Tags</FilterLabel>
+        <div id="tags" className="flex flex-row flex-wrap gap-2">
+          <span className="text-xs text-muted-foreground">No tags found.</span>
+        </div>
+      </div>
+    )
+  }
 }
 
 function toState(val: string | null) {
