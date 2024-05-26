@@ -1,11 +1,12 @@
 import { ThemeProvider } from 'next-themes'
-import { pretendard, jetbrainsMono } from '@/app/fonts'
+import { Toaster } from '@/components/ui/toaster'
 import { AppHeader } from '@/components/app-header'
 import { AppFooter } from '@/components/app-footer'
+import { QuickScrollButton } from '@/components/quick-scroll-button'
+import { pretendard, jetbrainsMono } from '@/app/fonts'
 import './globals.css'
 
 import type { Metadata } from 'next'
-import { QuickScrollButton } from '@/components/quick-scroll-button'
 
 type Props = Readonly<{
   children: React.ReactNode
@@ -35,6 +36,7 @@ export default function AppLayout({ children }: Props) {
             <main className="flex-1 container">{children}</main>
             <AppFooter />
           </div>
+          <Toaster />
           <QuickScrollButton />
         </ThemeProvider>
       </body>
