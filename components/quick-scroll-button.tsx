@@ -2,7 +2,7 @@
 
 import { ArrowDownIcon, ArrowUpIcon } from '@radix-ui/react-icons'
 import { Button } from '@/components/ui/button'
-import { useScrollDirection } from '@/hooks/use-scroll-direction'
+import { useScrollDirection } from '@/lib/hooks/use-scroll-direction'
 
 export function QuickScrollButton() {
   const direction = useScrollDirection()
