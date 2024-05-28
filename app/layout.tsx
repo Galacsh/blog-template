@@ -4,6 +4,7 @@ import { AppHeader } from '@/components/app-header'
 import { AppFooter } from '@/components/app-footer'
 import { QuickScrollButton } from '@/components/quick-scroll-button'
 import { pretendard, jetbrainsMono } from '@/app/fonts'
+import { imageSize } from '@/lib/og/image'
 import './globals.css'
 
 import type { Metadata } from 'next'
@@ -13,8 +14,20 @@ type Props = Readonly<{
 }>
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.BASE_URL),
   title: process.env.APP_NAME,
   description: process.env.APP_DESCRIPTION,
+  openGraph: {
+    images: [
+      {
+        alt: process.env.APP_NAME,
+        type: 'image/png',
+        width: imageSize.width,
+        height: imageSize.height,
+        url: '/og.png',
+      },
+    ],
+  },
 }
 
 export default function AppLayout({ children }: Props) {

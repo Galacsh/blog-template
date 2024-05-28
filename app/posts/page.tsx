@@ -1,5 +1,23 @@
 import { PostsFilter } from '@/components/posts-filter'
 import { FilteredPosts } from '@/components/filtered-posts'
+import { Metadata } from 'next'
+import { imageSize } from '@/lib/og/image'
+
+export const metadata: Metadata = {
+  openGraph: {
+    title: 'Posts',
+    description: 'List of posts',
+    images: [
+      {
+        alt: 'Posts',
+        type: 'image/png',
+        width: imageSize.width,
+        height: imageSize.height,
+        url: '/posts/og.png',
+      },
+    ],
+  },
+}
 
 export default function Posts() {
   return (
