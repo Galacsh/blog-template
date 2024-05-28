@@ -1,14 +1,16 @@
 export type Post = {
   title: string
   description: string
+  slug: string
+  date?: Date
   thumbnail?: string
-  series?: Series
   tags?: Tag[]
 }
 
-export type PostPreview = Pick<Post, 'title' | 'description' | 'thumbnail' | 'series' | 'tags'>
-
-export type Series = string
+export type PostPreview = Pick<
+  Post,
+  'title' | 'description' | 'slug' | 'date' | 'thumbnail' | 'tags'
+>
 
 export type Tag = string
 

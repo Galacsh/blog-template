@@ -68,6 +68,7 @@ function TagFilterItem({ tag, isSelected, onSelect, onDeselect }: TagFilterItemP
       className={cn(
         'px-2 py-1 text-xs rounded-md',
         'border hover:text-accent-foreground bg-background hover:bg-accent',
+        'focus:outline-none focus:text-accent-foreground focus:bg-accent',
         {
           'text-muted-foreground': !isSelected,
           'text-foreground': isSelected,
