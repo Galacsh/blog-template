@@ -1,5 +1,6 @@
 import { PostsFilter } from '@/components/posts-filter'
 import { FilteredPosts } from '@/components/filtered-posts'
+import { Suspense } from 'react'
 import { Metadata } from 'next'
 import { imageSize } from '@/lib/og/image'
 
@@ -22,8 +23,10 @@ export const metadata: Metadata = {
 export default function Posts() {
   return (
     <div className="w-full max-w-screen-sm mx-auto my-8 space-y-8">
-      <PostsFilter tags={[]} />
-      <FilteredPosts />
+      <Suspense>
+        <PostsFilter tags={sampleTags} />
+        <FilteredPosts posts={samplePosts} />
+      </Suspense>
     </div>
   )
 }
