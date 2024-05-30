@@ -11,7 +11,7 @@ export function QuickScrollButton() {
     <Button
       variant="outline"
       size="icon"
-      className="fixed bottom-4 right-4 size-8"
+      className="fixed bottom-4 right-4 size-8 z-40"
       onClick={() => {
         if (direction === 'up') scrollTop()
         else scrollBottom()
