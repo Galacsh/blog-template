@@ -1,18 +1,16 @@
-'use client'
-
 import { FilterLabel } from '@/components/posts-filter-label'
-import { useSearch } from '@/lib/hooks/use-search'
 import { cn } from '@/lib/utils'
 
+import type { Dispatch, SetStateAction } from 'react'
 import type { Tag } from '@/lib/types'
 
 type TagFilterProps = Readonly<{
   tags: Tag[]
+  selectedTags: Tag[]
+  onSelectedTagsChange: Dispatch<SetStateAction<string[]>>
 }>
 
-export function TagFilter({ tags }: TagFilterProps) {
-  const [selected, setSelected] = useSearch('tags', [], toState, toParam)
-
+export function TagFilter({ tags, selectedTags, onSelectedTagsChange }: TagFilterProps) {
   if (tags.length) {
     return (
       <div className="w-full">
@@ -22,9 +20,11 @@ export function TagFilter({ tags }: TagFilterProps) {
             <TagFilterItem
               key={'tag_' + idx}
               tag={tag}
-              isSelected={selected?.includes(tag) || false}
-              onSelect={(selectedTag) => setSelected([...selected, selectedTag])}
-              onDeselect={(deselected) => setSelected(selected.filter((t) => t !== deselected))}
+              isSelected={selectedTags?.includes(tag) || false}
+              onSelect={(selectedTag) => onSelectedTagsChange([...selectedTags, selectedTag])}
+              onDeselect={(deselected) =>
+                onSelectedTagsChange(selectedTags.filter((t) => t !== deselected))
+              }
             />
           ))}
         </div>
@@ -40,14 +40,6 @@ export function TagFilter({ tags }: TagFilterProps) {
       </div>
     )
   }
-}
-
-function toState(val: string | null) {
-  return val?.split(',').map(decodeURIComponent) || []
-}
-
-function toParam(state: Tag[]) {
-  return state?.map(encodeURIComponent).join(',')
 }
 
 type TagFilterItemProps = Readonly<{

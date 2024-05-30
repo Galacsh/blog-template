@@ -1,11 +1,25 @@
-'use client'
-
 import { Input } from '@/components/ui/input'
 import { FilterLabel } from '@/components/posts-filter-label'
-import { useSearch } from '@/lib/hooks/use-search'
+import { useState, useEffect } from 'react'
+import { useDebounce } from '@/lib/hooks/use-debounce'
 
-export function QueryFilter() {
-  const [query, setQuery] = useSearch('query', '', toState, toParam)
+import type { Dispatch, SetStateAction } from 'react'
+
+type Props = Readonly<{
+  query: string
+  onQueryChange: Dispatch<SetStateAction<string>>
+}>
+
+export function QueryFilter({ query, onQueryChange }: Props) {
+  // create buffer with text
+  const [buffer, setBuffer] = useState(query)
+
+  // force sync between text and buffer
+  useEffect(() => setBuffer(query), [query])
+
+  // debouncing search param update
+  const debounced = useDebounce(buffer)
+  useEffect(() => onQueryChange(debounced), [debounced, onQueryChange])
 
   return (
     <div className="w-full">
@@ -14,17 +28,9 @@ export function QueryFilter() {
         type="search"
         id="query"
         placeholder="Type here..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        value={buffer}
+        onChange={(e) => setBuffer(e.target.value)}
       />
     </div>
   )
-}
-
-function toState(val: string | null) {
-  return val || ''
-}
-
-function toParam(state: string) {
-  return state || null
 }

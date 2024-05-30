@@ -1,9 +1,5 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
-import { useTheme } from 'next-themes'
-import { useRouter } from 'next/navigation'
-import { LaptopIcon, MagnifyingGlassIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons'
 import { Button } from '@/components/ui/button'
 import {
   CommandDialog,
@@ -14,6 +10,10 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/ui/command'
+import { LaptopIcon, MagnifyingGlassIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons'
+import { useCallback, useEffect, useState } from 'react'
+import { useTheme } from 'next-themes'
+import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
 export function CommandMenu() {

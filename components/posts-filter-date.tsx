@@ -1,22 +1,24 @@
-'use client'
-
-import { useEffect, useState } from 'react'
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { FilterLabel } from '@/components/posts-filter-label'
+import { useEffect, useState } from 'react'
 import { useToast } from '@/components/ui/use-toast'
-import { useSearch } from '@/lib/hooks/use-search'
-import { format } from 'date-fns/format'
-import { parse } from 'date-fns/parse'
+import { format } from 'date-fns'
 import { cn } from '@/lib/utils'
 
+import type { Dispatch, SetStateAction } from 'react'
 import type { SelectSingleEventHandler } from 'react-day-picker'
 
-export function DateFilter() {
-  const [from, setFrom] = useSearch('from', undefined, toState, toParam)
-  const [to, setTo] = useSearch('to', undefined, toState, toParam)
+type Props = Readonly<{
+  from: Date | undefined
+  onFromChange: Dispatch<SetStateAction<Date | undefined>>
+  to: Date | undefined
+  onToChange: Dispatch<SetStateAction<Date | undefined>>
+}>
+
+export function DateFilter({ from, onFromChange, to, onToChange }: Props) {
   const { toast } = useToast()
 
   useEffect(() => {
@@ -24,19 +26,6 @@ export function DateFilter() {
       throw new Error('Invalid date range.')
     }
   }, [from, to])
-
-  const safeSelectTo = (date: Date | undefined) => {
-    if (from && date && from > date) {
-      toast({
-        title: 'Invalid Date',
-        description: "'To' cannot be earlier than 'From'.",
-      })
-      return false
-    } else {
-      setTo(date)
-      return true
-    }
-  }
 
   const safeSelectFrom = (date: Date | undefined) => {
     if (to && date && to < date) {
@@ -46,7 +35,20 @@ export function DateFilter() {
       })
       return false
     } else {
-      setFrom(date)
+      onFromChange(date)
+      return true
+    }
+  }
+
+  const safeSelectTo = (date: Date | undefined) => {
+    if (from && date && from > date) {
+      toast({
+        title: 'Invalid Date',
+        description: "'To' cannot be earlier than 'From'.",
+      })
+      return false
+    } else {
+      onToChange(date)
       return true
     }
   }
@@ -71,23 +73,6 @@ export function DateFilter() {
       />
     </div>
   )
-}
-
-function toState(val: string | null) {
-  if (!val) return undefined
-
-  const date = parse(val, 'yyyy-MM-dd', new Date())
-
-  if (isNaN(date.valueOf()) || date.valueOf() < 0) {
-    throw new Error('Invalid date.')
-  }
-
-  return date
-}
-
-function toParam(state: Date | undefined) {
-  if (!state) return null
-  return format(state, 'yyyy-MM-dd')
 }
 
 type FilterDatePickerProps = Readonly<{

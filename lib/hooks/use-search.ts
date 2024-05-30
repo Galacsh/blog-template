@@ -9,7 +9,7 @@ import type { Dispatch, SetStateAction } from 'react'
  * A custom hook that provides state management tied to URL search parameters.
  * It returns a state value and a `set` function same as `useState(...)`.
  */
-export function useSearch<S>(
+export function useSearchState<S>(
   key: string,
   initialState: S | (() => S),
   toState: (val: string | null) => S,
@@ -67,4 +67,37 @@ export function useSearch<S>(
   )
 
   return [state, setState]
+}
+
+/**
+ * A custom hook that provides state tied to URL search parameters.
+ * It returns a state value without the `set` function.
+ */
+export function useSearch<S>(
+  key: string,
+  initialState: S | (() => S),
+  toState: (val: string | null) => S
+): S {
+  const searchParams = useSearchParams()
+
+  // Set initial state.
+  // First, try to get from search param.
+  // If no search param, use given initial state.
+  const [state, setState] = useState<S>(() => {
+    const param = toState(searchParams.get(key))
+    if (param) return param
+    return typeof initialState === 'function' ? (initialState as Function)() : initialState
+  })
+
+  // when param changes, update state
+  useEffect(
+    () => {
+      const val = toState(searchParams.get(key))
+      if (val !== state) setState(val)
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [searchParams]
+  )
+
+  return state
 }
