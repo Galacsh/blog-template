@@ -1,3 +1,5 @@
+'use client'
+
 import { SortButton } from '@/components/sort-button'
 import { PostPreviewItem } from '@/components/post-preview'
 import { PostPreviewSkeleton } from '@/components/post-preview-skeleton'
@@ -5,10 +7,10 @@ import { useMemo, useCallback, useState, useEffect, useRef } from 'react'
 import { useSearch } from '@/lib/hooks/use-search'
 import { parse } from 'date-fns'
 
-import type { PostPreview, PostPreviewResponse, SortBy, SortOrder, Tag } from '@/lib/types'
+import type { PreviewResponse, PreviewDateParsed, SortBy, SortOrder, Tag } from '@/lib/types'
 
 export function FilteredPosts() {
-  const [posts, setPosts] = useState<PostPreview[]>()
+  const [posts, setPosts] = useState<PreviewDateParsed[]>()
 
   // Load posts
   useEffect(() => {
@@ -23,7 +25,7 @@ export function FilteredPosts() {
   const tagsSet = useMemo(() => new Set(selectedTags), [selectedTags])
 
   const filter = useCallback(
-    async (unfiltered: PostPreview[]) => {
+    async (unfiltered: PreviewDateParsed[]) => {
       let result = unfiltered
       if (query || from || to || tagsSet) {
         result = unfiltered
@@ -41,7 +43,7 @@ export function FilteredPosts() {
   const order = useSearch('order', 'desc', toStateOrder)
 
   const compare = useCallback(
-    (a: PostPreview, b: PostPreview) => {
+    (a: PreviewDateParsed, b: PreviewDateParsed) => {
       let result = 0
       const aValue = a[sort]
       const bValue = b[sort]
@@ -66,9 +68,9 @@ export function FilteredPosts() {
   )
 
   // Actual filtering and sorting
-  const filteringQueue = useRef<Promise<PostPreview[]>[]>([])
+  const filteringQueue = useRef<Promise<PreviewDateParsed[]>[]>([])
   const [loading, setLoading] = useState(true)
-  const [filtered, setFiltered] = useState<PostPreview[]>()
+  const [filtered, setFiltered] = useState<PreviewDateParsed[]>([])
 
   useEffect(() => {
     if (posts) {
@@ -78,11 +80,19 @@ export function FilteredPosts() {
       filteringQueue.current.push(filtering)
 
       filtering.then((unsorted) => {
-        filteringQueue.current.shift()
-        if (filteringQueue.current.length > 0) return
-
-        setFiltered(unsorted.sort(compare))
-        setLoading(false)
+        const idx = filteringQueue.current.indexOf(filtering)
+        if (idx === filteringQueue.current.length - 1) {
+          // clear the queue
+          filteringQueue.current = []
+          // use this value
+          setFiltered(unsorted.sort(compare))
+          setLoading(false)
+        } else {
+          // remove this value
+          filteringQueue.current.splice(idx, 1)
+          // and do nothing
+          return
+        }
       })
     }
   }, [posts, filter, compare])
@@ -94,15 +104,15 @@ export function FilteredPosts() {
         <SortButton />
       </div>
       <div className="flex flex-col space-y-8">
-        {loading || filtered == null ? (
+        {loading ? (
           <PostPreviewSkeletons />
         ) : filtered.length === 0 ? (
           <NoPostsFound />
         ) : (
           filtered.map((post) => (
             <PostPreviewItem
-              key={post.slug}
-              slug={post.slug}
+              key={post.slug.full}
+              slug={post.slug.full}
               title={post.title}
               description={post.description}
               tags={post.tags}
@@ -146,9 +156,11 @@ function NoPostsFound() {
 /**
  * Fetch and parse posts
  */
-async function getPosts(): Promise<PostPreview[]> {
-  const res = await fetch('/api/posts')
-  const { posts } = (await res.json()) as PostPreviewResponse
+async function getPosts(): Promise<PreviewDateParsed[]> {
+  const res = await fetch('/api/posts', { next: { revalidate: 3600 } })
+  const { posts } = (await res.json()) as PreviewResponse
+
+  if (posts == null) return []
 
   return posts.map((p) => ({
     ...p,
@@ -160,7 +172,7 @@ async function getPosts(): Promise<PostPreview[]> {
 // == Filters ==
 // =============
 
-const filterQuery = (p: PostPreview, query: string) => {
+const filterQuery = (p: PreviewDateParsed, query: string) => {
   if (query) {
     const queryLowercase = query.toLowerCase()
     return (
@@ -172,7 +184,7 @@ const filterQuery = (p: PostPreview, query: string) => {
   }
 }
 
-const filterDate = (p: PostPreview, from: Date | undefined, to: Date | undefined) => {
+const filterDate = (p: PreviewDateParsed, from: Date | undefined, to: Date | undefined) => {
   if (!from && !to) return true
   if (!p.date) return false
 
@@ -185,7 +197,7 @@ const filterDate = (p: PostPreview, from: Date | undefined, to: Date | undefined
   return true
 }
 
-const filterTags = (p: PostPreview, selectedTagsSet: Set<Tag>) => {
+const filterTags = (p: PreviewDateParsed, selectedTagsSet: Set<Tag>) => {
   if (selectedTagsSet.size === 0) return true
   if (!p.tags) return false
 

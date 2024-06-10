@@ -1,22 +1,43 @@
+import { useEffect, useState } from 'react'
 import { FilterLabel } from '@/components/posts-filter-label'
 import { cn } from '@/lib/utils'
 
 import type { Dispatch, SetStateAction } from 'react'
 import type { Tag } from '@/lib/types'
+import { Skeleton } from './ui/skeleton'
 
 type TagFilterProps = Readonly<{
-  tags: Tag[]
   selectedTags: Tag[]
   onSelectedTagsChange: Dispatch<SetStateAction<string[]>>
 }>
 
-export function TagFilter({ tags, selectedTags, onSelectedTagsChange }: TagFilterProps) {
-  if (tags.length) {
-    return (
-      <div className="w-full">
-        <FilterLabel htmlFor="tags">Tags</FilterLabel>
-        <div id="tags" className="flex flex-row flex-wrap gap-2">
-          {tags.map((tag, idx) => (
+type TagsResponse = {
+  tags: Tag[]
+}
+
+export function TagFilter({ selectedTags, onSelectedTagsChange }: TagFilterProps) {
+  const [tags, setTags] = useState<Tag[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    getTags().then((data) => {
+      setTags(data)
+      setLoading(false)
+    })
+  }, [])
+
+  return (
+    <div className="w-full">
+      <FilterLabel htmlFor="tags">Tags</FilterLabel>
+      <div className="flex flex-row flex-wrap gap-2">
+        {loading ? (
+          <>
+            <TagFilterItemSkeleton width="2.5rem" />
+            <TagFilterItemSkeleton width="4.5rem" />
+            <TagFilterItemSkeleton width="3.5rem" />
+          </>
+        ) : tags.length > 0 ? (
+          tags.map((tag, idx) => (
             <TagFilterItem
               key={'tag_' + idx}
               tag={tag}
@@ -26,20 +47,13 @@ export function TagFilter({ tags, selectedTags, onSelectedTagsChange }: TagFilte
                 onSelectedTagsChange(selectedTags.filter((t) => t !== deselected))
               }
             />
-          ))}
-        </div>
-      </div>
-    )
-  } else {
-    return (
-      <div className="w-full">
-        <FilterLabel htmlFor="tags">Tags</FilterLabel>
-        <div id="tags" className="flex flex-row flex-wrap gap-2">
+          ))
+        ) : (
           <span className="text-xs text-muted-foreground">No tags found.</span>
-        </div>
+        )}
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 type TagFilterItemProps = Readonly<{
@@ -73,4 +87,15 @@ function TagFilterItem({ tag, isSelected, onSelect, onDeselect }: TagFilterItemP
       {tag}
     </button>
   )
+}
+
+function TagFilterItemSkeleton({ width }: { width: string }) {
+  return <Skeleton style={{ width }} className={'h-[1.625rem] rounded-md'} />
+}
+
+async function getTags(): Promise<Tag[]> {
+  const res = await fetch('/api/tags', { next: { revalidate: 3600 } })
+  const { tags } = (await res.json()) as TagsResponse
+
+  return tags || []
 }

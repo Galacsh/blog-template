@@ -8,4 +8,3 @@ export function Image({ alt, src }: React.ComponentProps<'img'>) {
     />
   )
 }
-// TODO: inline code, code block

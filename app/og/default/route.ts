@@ -1,12 +1,12 @@
 import { image } from '@/lib/og/image'
 
-export async function generateStaticParams() {
-  return []
-}
-
 /**
  * Workaround to generate OpenGraph image
  */
-export async function GET() {
+export function GET() {
   return image(process.env.APP_NAME)
+}
+
+export function generateStaticParams() {
+  return []
 }

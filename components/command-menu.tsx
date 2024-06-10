@@ -10,14 +10,29 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/ui/command'
-import { LaptopIcon, MagnifyingGlassIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons'
+import {
+  LaptopIcon,
+  MagnifyingGlassIcon,
+  MoonIcon,
+  FileTextIcon,
+  SunIcon,
+} from '@radix-ui/react-icons'
 import { useCallback, useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
+import type { PreviewResponse } from '@/lib/types'
+
+type PostCore = {
+  title: string
+  slug: string
+}
+
 export function CommandMenu() {
   const [open, setOpen] = useState(false)
+  const [posts, setPosts] = useState<PostCore[]>([])
+  const [loading, setLoading] = useState(true)
   const { setTheme } = useTheme()
   const router = useRouter()
 
@@ -36,6 +51,13 @@ export function CommandMenu() {
 
     document.addEventListener('keydown', down)
     return () => document.removeEventListener('keydown', down)
+  }, [])
+
+  useEffect(() => {
+    getPosts().then((arr) => {
+      setPosts(arr)
+      setLoading(false)
+    })
   }, [])
 
   const runCommand = useCallback((command: () => unknown) => {
@@ -63,7 +85,7 @@ export function CommandMenu() {
         type="button"
         variant="outline"
         size="icon"
-        className="size-8 bg-background sm:hidden"
+        className="size-8 sm:hidden"
         onClick={() => setOpen(true)}
       >
         <MagnifyingGlassIcon className="size-4" />
@@ -76,39 +98,58 @@ export function CommandMenu() {
           <CommandEmpty>No results found.</CommandEmpty>
           {/* Posts */}
           <CommandGroup heading="Posts">
-            <CommandItem onSelect={() => runCommand(() => {})}>
-              TODO: implement posts searching
-            </CommandItem>
-          </CommandGroup>
-          <CommandSeparator />
-          {/* Links */}
-          <CommandGroup heading="Links">
-            <CommandItem onSelect={() => runCommand(() => {})}>
-              TODO: use sitemap maybe?
-            </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => router.push('/'))}>Home</CommandItem>
-            <CommandItem onSelect={() => runCommand(() => router.push('/posts'))}>
-              Posts
-            </CommandItem>
+            {loading ? (
+              <CommandItem disabled>Loading posts...</CommandItem>
+            ) : posts.length > 0 ? (
+              posts.map((post) => (
+                <CommandItem
+                  key={'command_' + post.slug}
+                  onSelect={() => runCommand(() => router.push(post.slug))}
+                >
+                  <FileTextIcon
+                    style={{ width: '0.825rem', height: '0.825rem' }}
+                    className="mr-2"
+                  />
+                  <span>{post.title}</span>
+                </CommandItem>
+              ))
+            ) : (
+              <CommandItem disabled>No posts found.</CommandItem>
+            )}
           </CommandGroup>
           <CommandSeparator />
           {/* Theme */}
           <CommandGroup heading="Theme">
             <CommandItem onSelect={() => runCommand(() => setTheme('light'))}>
-              <SunIcon className="mr-2 h-4 w-4" />
-              Light
+              <SunIcon style={{ width: '0.825rem', height: '0.825rem' }} className="mr-2" />
+              <span>Light</span>
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme('dark'))}>
-              <MoonIcon className="mr-2 h-4 w-4" />
-              Dark
+              <MoonIcon style={{ width: '0.825rem', height: '0.825rem' }} className="mr-2" />
+              <span>Dark</span>
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme('system'))}>
-              <LaptopIcon className="mr-2 h-4 w-4" />
-              System
+              <LaptopIcon style={{ width: '0.825rem', height: '0.825rem' }} className="mr-2" />
+              <span>System</span>
             </CommandItem>
           </CommandGroup>
         </CommandList>
       </CommandDialog>
     </>
   )
+}
+
+/**
+ * Fetch and parse posts
+ */
+async function getPosts(): Promise<PostCore[]> {
+  const res = await fetch('/api/posts', { next: { revalidate: 3600 } })
+  const { posts } = (await res.json()) as PreviewResponse
+
+  if (posts == null) return []
+
+  return posts.map((p) => ({
+    title: p.title,
+    slug: '/posts/' + p.slug.full,
+  }))
 }

@@ -1,41 +1,32 @@
-import type { PostPreviewResponse } from '@/lib/types'
+import { getPosts } from '@/lib/posts'
+import type { PostInfo, Preview, PostTree } from '@/lib/types'
 
 export async function generateStaticParams() {
   return []
 }
 
 export async function GET() {
-  return Response.json({ posts: samplePosts || [] } as PostPreviewResponse)
+  return Response.json({ posts: flatten(getPosts()).map(toPreview) })
 }
 
-const samplePosts = [
-  {
-    title: 'Introduction to JavaScript',
-    description:
-      'A comprehensive guide to getting started with JavaScript, covering the basics and foundational concepts.',
-    slug: 'introduction-to-javascript',
-    date: '2024-04-01',
-    tags: ['javaScript', 'beginner'],
-  },
-  {
-    title: 'CSS Grid Layout',
-    description: 'Learn how to use CSS Grid to create complex layouts with ease.',
-    slug: 'css-grid-layout',
-    tags: ['css', 'layout', 'frontend'],
-  },
-  {
-    title: 'Understanding Promises in JavaScript',
-    description:
-      'An in-depth look at promises in JavaScript and how to use them for asynchronous programming.',
-    slug: 'understanding-promises-in-javascript',
-    date: '2024-04-02',
-    tags: ['javaScript', 'asynchronous', 'intermediate'],
-  },
-  {
-    title: 'Getting Started with React',
-    description:
-      "A beginner's guide to building user interfaces with React, a popular JavaScript library.",
-    slug: 'getting-started-with-react',
-    tags: ['react', 'javaScript', 'frontend', 'beginner'],
-  },
-]
+function flatten(tree: PostTree): PostInfo[] {
+  if (tree.children == null) return []
+
+  return Object.values(tree.children).flatMap((child) => {
+    if (!child.children) {
+      return child.post as PostInfo
+    } else {
+      return flatten(child)
+    }
+  })
+}
+
+function toPreview(post: PostInfo): Preview {
+  return {
+    title: post.title,
+    description: post.description,
+    slug: post.slug,
+    date: post.date,
+    tags: post.tags,
+  }
+}

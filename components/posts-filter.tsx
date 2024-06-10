@@ -1,3 +1,5 @@
+'use client'
+
 import { QueryFilter } from '@/components/posts-filter-query'
 import { DateFilter } from '@/components/posts-filter-date'
 import { TagFilter } from '@/components/posts-filter-tag'
@@ -17,26 +19,10 @@ export function PostsFilter() {
       <h1 className="block font-bold text-xl">Filter</h1>
       <QueryFilter query={query} onQueryChange={setQuery} />
       <DateFilter from={from} onFromChange={setFrom} to={to} onToChange={setTo} />
-      <TagFilter
-        tags={sampleTags}
-        selectedTags={selectedTags}
-        onSelectedTagsChange={setSelectedTags}
-      />
+      <TagFilter selectedTags={selectedTags} onSelectedTagsChange={setSelectedTags} />
     </div>
   )
 }
-
-const sampleTags: Tag[] = [
-  'react',
-  'css',
-  'layout',
-  'asynchronous',
-  'intermediate',
-  'javaScript',
-  'tutorial',
-  'frontend',
-  'beginner',
-]
 
 function toStateQuery(val: string | null) {
   return val || ''

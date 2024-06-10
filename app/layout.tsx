@@ -4,13 +4,14 @@ import { AppHeader } from '@/components/app-header'
 import { AppFooter } from '@/components/app-footer'
 import { QuickScrollButton } from '@/components/quick-scroll-button'
 import { pretendard, jetbrainsMono } from '@/app/fonts'
-import { imageSize } from '@/lib/og/image'
+import { imageContentType, imageSize } from '@/lib/og/image'
 import './globals.css'
 
+import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
 
 type Props = Readonly<{
-  children: React.ReactNode
+  children: ReactNode
 }>
 
 export const metadata: Metadata = {
@@ -21,10 +22,10 @@ export const metadata: Metadata = {
     images: [
       {
         alt: process.env.APP_NAME,
-        type: 'image/png',
+        type: imageContentType,
         width: imageSize.width,
         height: imageSize.height,
-        url: '/og.png',
+        url: '/og/default',
       },
     ],
   },
@@ -37,7 +38,7 @@ export default function AppLayout({ children }: Props) {
       suppressHydrationWarning
       className={`${pretendard.variable} ${jetbrainsMono.variable}`}
     >
-      <body>
+      <body className="selection:bg-active/30">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -50,7 +51,7 @@ export default function AppLayout({ children }: Props) {
             <AppFooter />
           </div>
           <Toaster />
-          <QuickScrollButton />
+          <QuickScrollButton className="fixed bottom-4 right-4 z-40" />
         </ThemeProvider>
       </body>
     </html>
