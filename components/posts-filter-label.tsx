@@ -1,8 +1,10 @@
 import { Label } from '@/components/ui/label'
 
+import type { ReactNode } from 'react'
+
 type FilterLabelProps = Readonly<{
   htmlFor?: string
-  children: React.ReactNode
+  children: ReactNode
 }>
 
 export function FilterLabel({ htmlFor, children }: FilterLabelProps) {

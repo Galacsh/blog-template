@@ -3,15 +3,20 @@
 import { ArrowDownIcon, ArrowUpIcon } from '@radix-ui/react-icons'
 import { Button } from '@/components/ui/button'
 import { useScrollDirection } from '@/lib/hooks/use-scroll-direction'
+import { cn } from '@/lib/utils'
 
-export function QuickScrollButton() {
+type Props = Readonly<{
+  className?: string
+}>
+
+export function QuickScrollButton({ className }: Props) {
   const direction = useScrollDirection()
 
   return (
     <Button
       variant="outline"
       size="icon"
-      className="fixed bottom-4 right-4 size-8 z-40"
+      className={cn('size-8', className)}
       onClick={() => {
         if (direction === 'up') scrollTop()
         else scrollBottom()

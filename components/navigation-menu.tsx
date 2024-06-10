@@ -17,8 +17,9 @@ export function NavigationMenu() {
       <Link
         href="/posts"
         className={cn(
-          'text-sm transition-colors hover:text-foreground/80',
-          pathname === '/posts' ? 'text-foreground' : 'text-foreground/60'
+          'py-2',
+          'text-sm leading-4 transition-colors hover:text-foreground/80',
+          pathname.startsWith('/posts') ? 'text-foreground' : 'text-foreground/60'
         )}
       >
         Posts

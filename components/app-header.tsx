@@ -15,7 +15,7 @@ export function AppHeader() {
     <header
       className={cn(
         { sticky: shouldBeSticky, 'top-0': shouldBeSticky },
-        'w-full z-50',
+        'w-full px-4 z-50',
         'border-b border-border',
         'bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'
       )}

@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 export function PostPreviewSkeleton() {
   return (
-    <span className="relative block w-full group focus:outline-none z-[1]">
+    <span className="block w-full focus:outline-none">
       {/* Date */}
       <span className="flex flex-row items-center space-x-2">
         <Skeleton className="size-3" />
@@ -24,8 +24,6 @@ export function PostPreviewSkeleton() {
         <Skeleton className="h-6 w-10" />
         <Skeleton className="h-6 w-14" />
       </span>
-      {/* Hover effect */}
-      <span className="absolute block top-[-0.5rem] left-[-1rem] w-[calc(100%+2rem)] h-[calc(100%+1rem)] sm:rounded-md bg-accent/50 invisible group-hover:visible group-focus:visible z-[-1]" />
     </span>
   )
 }

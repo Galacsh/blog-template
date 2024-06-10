@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 
 /**
- * A custom hook that debounces a state value.
+ * A custom hook that debounce a state value.
  * It delays updating the returned value until after the specified delay has passed
  * since the last change to the input state.
  */

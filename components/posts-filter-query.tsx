@@ -29,6 +29,7 @@ export function QueryFilter({ query, onQueryChange }: Props) {
         id="query"
         placeholder="Type here..."
         value={buffer}
+        className="hover:bg-accent"
         onChange={(e) => setBuffer(e.target.value)}
       />
     </div>

@@ -5,14 +5,21 @@ import { RadioItem, ItemIndicator } from '@radix-ui/react-dropdown-menu'
 import { forwardRef } from 'react'
 import { cn } from '@/lib/utils'
 
+import type { ElementRef, ComponentPropsWithoutRef } from 'react'
+
 export const DropdownMenuCheckRadioItem = forwardRef<
-  React.ElementRef<typeof RadioItem>,
-  React.ComponentPropsWithoutRef<typeof RadioItem>
+  ElementRef<typeof RadioItem>,
+  ComponentPropsWithoutRef<typeof RadioItem>
 >(({ className, children, ...props }, ref) => (
   <RadioItem
     ref={ref}
     className={cn(
-      'relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+      'relative',
+      'flex items-center py-1.5 pl-8 pr-2',
+      'text-sm outline-none rounded-sm',
+      'transition-colors focus:bg-accent focus:text-accent-foreground',
+      'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+      'cursor-default select-none',
       className
     )}
     {...props}

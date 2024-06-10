@@ -33,6 +33,9 @@
     --ring: 240 10% 3.9%;
 
     --radius: 0.5rem;
+
+    --active: 238 85% 68%;
+    --active-foreground: 238 85% 48%;
   }
 
   .dark {
@@ -63,6 +66,9 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+
+    --active: 238 95% 83%;
+    --active-foreground: 238 95% 78%;
   }
 }
 
