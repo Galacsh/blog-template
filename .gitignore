@@ -34,3 +34,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE
+/.idea
+
+# Posts
+/posts
+/markdown/posts.json
+/markdown/slugs.json
+/markdown/tags.json
