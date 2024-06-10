@@ -1,6 +1,8 @@
 import { cn } from '@/lib/utils'
 
-export function Pre({ className, children }: React.ComponentProps<'pre'>) {
+import type { ComponentProps } from 'react'
+
+export function Pre({ className, children }: ComponentProps<'pre'>) {
   return (
     <div className="code-block px-4 mb-4 border rounded-md">
       <pre

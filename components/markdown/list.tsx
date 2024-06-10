@@ -1,21 +1,23 @@
 import { Checkbox } from '@/components/ui/checkbox'
 import { cn } from '@/lib/utils'
 
-export function UnorderedList({ children }: React.ComponentProps<'ul'>) {
+import type { ComponentProps } from 'react'
+
+export function UnorderedList({ children }: ComponentProps<'ul'>) {
   return <ul className="list-disc has-[button]:list-none ps-[2em] mb-4 [&_&]:mb-0">{children}</ul>
 }
 
-export function OrderedList({ children }: React.ComponentProps<'ol'>) {
+export function OrderedList({ children }: ComponentProps<'ol'>) {
   return (
     <ol className="list-decimal has-[button]:list-none ps-[2em] mb-4 [&_&]:mb-0">{children}</ol>
   )
 }
 
-export function ListItem({ children }: React.ComponentProps<'li'>) {
+export function ListItem({ children }: ComponentProps<'li'>) {
   return <li className="break-words [&>p]:my-4 [&+&]:mt-[0.25em] [&_&]:mt-[0.25em]">{children}</li>
 }
 
-export function InputCheckbox({ disabled, checked }: React.ComponentProps<'input'>) {
+export function InputCheckbox({ disabled, checked }: ComponentProps<'input'>) {
   return (
     <Checkbox
       disabled={disabled}

@@ -1,5 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-export function Image({ alt, src }: React.ComponentProps<'img'>) {
+
+import type { ComponentProps } from 'react'
+
+export function Image({ alt, src }: ComponentProps<'img'>) {
   return (
     <img
       alt={alt as string}

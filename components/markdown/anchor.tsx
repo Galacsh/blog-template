@@ -1,6 +1,8 @@
 import Link from 'next/link'
 
-export function Anchor({ href, children }: React.ComponentProps<'a'>) {
+import type { ComponentProps } from 'react'
+
+export function Anchor({ href, children }: ComponentProps<'a'>) {
   const className = 'text-active hover:text-active-foreground underline underline-offset-2'
   if (href && href.startsWith('/')) {
     return (
