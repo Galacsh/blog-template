@@ -1,1 +1,1 @@
-# SSG Template
+# Blog Template
