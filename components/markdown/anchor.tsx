@@ -5,16 +5,29 @@ import type { ComponentProps } from 'react'
 export function Anchor({ href, children }: ComponentProps<'a'>) {
   const className =
     'font-medium text-active hover:text-active-foreground underline underline-offset-2'
-  if (href && href.startsWith('/')) {
+
+  // External link
+  if (href == null || href.includes('://')) {
     return (
-      <Link href={href} className={className}>
+      <a className={className} href={href}>
         {children}
-      </Link>
+      </a>
     )
   }
+
   return (
-    <a className={className} href={href}>
+    <Link href={internalLink(href)} className={className}>
       {children}
-    </a>
+    </Link>
   )
+}
+
+function internalLink(href: string) {
+  const isPrefixed = ['/', '/posts', 'posts/'].includes(href)
+  let slug = href.split('/')
+  if (!isPrefixed) {
+    slug = slug.filter((s) => s !== '')
+    slug.unshift('/posts')
+  }
+  return slug.join('/')
 }
