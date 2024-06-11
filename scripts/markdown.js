@@ -161,6 +161,9 @@ function update() {
     // unexpected behavior
     if (!tree.children) throw new Error("Given tree doesn't have children.")
 
+    // clean up
+    post.relatedPosts = []
+
     // extract related posts
     Object.values(tree.children).forEach((child) => {
       if (child.post) {
