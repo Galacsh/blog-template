@@ -116,8 +116,13 @@ function processFile(path) {
   const file = loadFile(path)
   // extract frontmatter and slug
   matter(file, { strip: true })
+
+  // do not process draft
+  if (file.data.matter?.draft) return
+
+  // set slug
   slug(file)
-  // insert into tree
+
   insertTree(postTree, file)
 }
 

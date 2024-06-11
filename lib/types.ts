@@ -23,6 +23,7 @@ export type Frontmatter = {
   description: string
   date?: string
   tags?: Tag[]
+  draft: boolean
 }
 
 export type Preview = Frontmatter & Slug
