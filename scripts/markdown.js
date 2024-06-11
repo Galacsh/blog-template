@@ -117,6 +117,8 @@ function processFile(path) {
   // extract frontmatter and slug
   matter(file, { strip: true })
 
+  // do not process if title, description is not set yet
+  if (!file.data.matter?.title || !file.data.matter?.description) return
   // do not process draft
   if (file.data.matter?.draft) return
 
