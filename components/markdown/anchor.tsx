@@ -24,11 +24,22 @@ export function Anchor({ href, children }: ComponentProps<'a'>) {
 
 function internalLink(href: string) {
   const isPrefixed = ['/', '/posts', 'posts/'].includes(href)
-  let slug = href.split('/')
+  let parts = href.split('/')
+
+  // set prefix if not present
   if (!isPrefixed) {
-    slug.unshift('/posts')
-    slug = slug.filter((s) => s !== '')
+    parts.unshift('/posts')
+    parts = parts.filter((s) => s !== '')
   }
-  const joined = slug.join('/')
+
+  // Remove extension at the end.
+  const last = parts[parts.length - 1]
+  if (last.includes('.')) {
+    parts[parts.length - 1] = last.split('.')[0]
+  }
+
+  const joined = parts.join('/')
+
+  // ensure leading slash
   return joined.startsWith('/') ? joined : `/${joined}`
 }
