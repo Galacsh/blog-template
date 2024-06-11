@@ -26,8 +26,9 @@ function internalLink(href: string) {
   const isPrefixed = ['/', '/posts', 'posts/'].includes(href)
   let slug = href.split('/')
   if (!isPrefixed) {
-    slug = slug.filter((s) => s !== '')
     slug.unshift('/posts')
+    slug = slug.filter((s) => s !== '')
   }
-  return slug.join('/')
+  const joined = slug.join('/')
+  return joined.startsWith('/') ? joined : `/${joined}`
 }

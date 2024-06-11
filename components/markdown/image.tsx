@@ -20,5 +20,7 @@ export function Image({ alt, src }: ComponentProps<'img'>) {
 function internalSrc(src: string) {
   let parts = src.split('/')
   parts.unshift(config.basePath)
-  return parts.join('/')
+  parts = parts.filter((s) => s !== '')
+  const joined = parts.join('/')
+  return joined.startsWith('/') ? joined : `/${joined}`
 }
