@@ -42,7 +42,7 @@ export function H4({ children, id }: ComponentProps<'h4'>) {
 
 export function H3({ children, id }: ComponentProps<'h3'>) {
   return (
-    <h3 className={`text-[1.375rem] ${commonClassName}`} id={id}>
+    <h3 className={`text-[1.4rem] ${commonClassName}`} id={id}>
       <a className="underline-offset-2 hover:underline" href={`#${id}`}>
         {children}
       </a>
@@ -52,7 +52,7 @@ export function H3({ children, id }: ComponentProps<'h3'>) {
 
 export function H2({ children, id }: ComponentProps<'h2'>) {
   return (
-    <h2 className={`text-[1.5rem] ${commonClassName}`} id={id}>
+    <h2 className={`text-[1.6rem] ${commonClassName}`} id={id}>
       <a className="underline-offset-2 hover:underline" href={`#${id}`}>
         {children}
       </a>
@@ -62,7 +62,7 @@ export function H2({ children, id }: ComponentProps<'h2'>) {
 
 export function H1({ children, id }: ComponentProps<'h1'>) {
   return (
-    <h1 className={`text-[1.625rem] ${commonClassName}`} id={id}>
+    <h1 className={`text-[1.8rem] ${commonClassName}`} id={id}>
       <a className="underline-offset-2 hover:underline" href={`#${id}`}>
         {children}
       </a>
