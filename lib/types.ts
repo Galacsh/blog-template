@@ -23,7 +23,6 @@ export type Frontmatter = {
   description: string
   date?: string
   tags?: Tag[]
-  draft: boolean
 }
 
 export type Preview = Frontmatter & Slug
@@ -60,7 +59,7 @@ export type PreviewDateParsed = Omit<Preview, 'date'> & {
 declare module 'vfile' {
   interface DataMap {
     slug: Slug['slug']
-    matter: Frontmatter
+    matter: Frontmatter & { draft?: boolean }
     toc: OnThisPage[]
   }
 }
