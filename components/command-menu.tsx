@@ -145,7 +145,7 @@ export function CommandMenu() {
  */
 async function getPosts(): Promise<PostCore[]> {
   const res = await fetch(config.basePath + '/api/posts', {
-    next: { revalidate: 3600 },
+    cache: 'no-store',
   })
   const { posts } = (await res.json()) as PreviewResponse
 

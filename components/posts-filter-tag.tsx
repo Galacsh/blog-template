@@ -96,7 +96,7 @@ function TagFilterItemSkeleton({ width }: { width: string }) {
 
 async function getTags(): Promise<Tag[]> {
   const res = await fetch(config.basePath + '/api/tags', {
-    next: { revalidate: 3600 },
+    cache: 'no-store',
   })
   const { tags } = (await res.json()) as TagsResponse
 
