@@ -41,6 +41,7 @@ type RehypeNode = Node & {
 /**
  * Directory for markdown files
  */
+if (process.env.POSTS_PATH == null) throw new Error("Environment variable 'POSTS_PATH' is not set.")
 const postsDir = join(process.cwd(), process.env.POSTS_PATH)
 
 /**

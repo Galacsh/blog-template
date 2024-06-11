@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import appIcon from '@/app/icon.png'
+import { config } from '@/lib/config'
 
 export default function Logo() {
   const router = useRouter()
@@ -15,10 +16,8 @@ export default function Logo() {
       <Image src={appIcon} alt="App Icon" className="size-8" />
       <div className="h-4 w-[1px] invisible dark:sm:visible bg-foreground/30 sm:ml-0.5 sm:mr-2" />
       <span className="font-mono font-black hidden sm:block text-black dark:text-white">
-        {AUTHOR}
+        {config.author}
       </span>
     </div>
   )
 }
-
-const AUTHOR = process.env.NEXT_PUBLIC_AUTHOR

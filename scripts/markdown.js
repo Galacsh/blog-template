@@ -47,13 +47,14 @@ import 'dotenv/config'
  * Root directory of markdown files
  * @type {string}
  */
+if (process.env.POSTS_PATH == null) throw new Error("Environment variable 'POSTS_PATH' is not set.")
 const postsDir = join(process.cwd(), process.env.POSTS_PATH)
 
 /**
  * Directory to save results
  * @type {string}
  */
-const results = import.meta.dirname
+const results = join(process.cwd(), 'markdown')
 
 /**
  * Post tree

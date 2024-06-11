@@ -5,6 +5,7 @@ import profile from './profile.png'
 import { cn } from '@/lib/utils'
 
 import type { ReactNode } from 'react'
+import { config } from '@/lib/config'
 
 export default function Home() {
   return (
@@ -32,17 +33,19 @@ export default function Home() {
           />
           {/* Personal information */}
           <div className="text-center">
-            <div className="font-extrabold text-xl text-foreground mb-1">{AUTHOR}</div>
-            <div className="text-xs text-muted-foreground/75">{KEYWORDS}</div>
-            <div className="text-xs text-muted-foreground/75">{CONTACT}</div>
+            <div className="font-extrabold text-xl text-foreground mb-1">{config.author}</div>
+            <div className="text-xs text-muted-foreground/75">{config.keywords}</div>
+            <div className="text-xs text-muted-foreground/75">{config.contact}</div>
           </div>
           {/* About me */}
-          <div className="text-center text-xs leading-normal text-muted-foreground">{ABOUT}</div>
+          <div className="text-center text-xs leading-normal text-muted-foreground">
+            {config.about}
+          </div>
           {/* Links */}
-          {(GITHUB != null || LINKEDIN != null) && (
+          {(config.github != null || config.linkedin != null) && (
             <div className="w-full flex flex-row items-center gap-4">
-              {GITHUB && <ExternalLink href={GITHUB}>GitHub</ExternalLink>}
-              {LINKEDIN && <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>}
+              {config.github && <ExternalLink href={config.github}>GitHub</ExternalLink>}
+              {config.linkedin && <ExternalLink href={config.linkedin}>LinkedIn</ExternalLink>}
             </div>
           )}
         </div>
@@ -85,10 +88,3 @@ function ExternalLink({ href, children }: ExternalLinkProps) {
     </a>
   )
 }
-
-const AUTHOR = process.env.NEXT_PUBLIC_AUTHOR
-const ABOUT = process.env.NEXT_PUBLIC_ABOUT
-const CONTACT = process.env.NEXT_PUBLIC_CONTACT
-const KEYWORDS = process.env.NEXT_PUBLIC_KEYWORDS
-const GITHUB = process.env.NEXT_PUBLIC_GITHUB
-const LINKEDIN = process.env.NEXT_PUBLIC_LINKEDIN

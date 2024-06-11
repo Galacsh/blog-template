@@ -4,17 +4,18 @@ import { FilteredPosts } from '@/components/filtered-posts'
 import { imageContentType, imageSize } from '@/lib/og/image'
 
 import type { Metadata } from 'next'
+import { config } from '@/lib/config'
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.BASE_URL),
-  title: `Posts | ${process.env.APP_NAME}`,
+  metadataBase: new URL(config.baseUrl),
+  title: `Posts | ${config.name}`,
   description: 'List of posts',
   openGraph: {
-    title: `Posts | ${process.env.APP_NAME}`,
+    title: `Posts | ${config.name}`,
     description: 'List of posts',
     images: [
       {
-        alt: process.env.APP_NAME,
+        alt: config.name,
         type: imageContentType,
         width: imageSize.width,
         height: imageSize.height,

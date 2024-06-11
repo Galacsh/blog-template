@@ -23,6 +23,7 @@ import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
 import type { PreviewResponse } from '@/lib/types'
+import { config } from '@/lib/config'
 
 type PostCore = {
   title: string
@@ -143,7 +144,9 @@ export function CommandMenu() {
  * Fetch and parse posts
  */
 async function getPosts(): Promise<PostCore[]> {
-  const res = await fetch('/api/posts', { next: { revalidate: 3600 } })
+  const res = await fetch(config.basePath + '/api/posts', {
+    next: { revalidate: 3600 },
+  })
   const { posts } = (await res.json()) as PreviewResponse
 
   if (posts == null) return []

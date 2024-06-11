@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import type { Dispatch, SetStateAction } from 'react'
 import type { Tag } from '@/lib/types'
 import { Skeleton } from './ui/skeleton'
+import { config } from '@/lib/config'
 
 type TagFilterProps = Readonly<{
   selectedTags: Tag[]
@@ -94,7 +95,9 @@ function TagFilterItemSkeleton({ width }: { width: string }) {
 }
 
 async function getTags(): Promise<Tag[]> {
-  const res = await fetch('/api/tags', { next: { revalidate: 3600 } })
+  const res = await fetch(config.basePath + '/api/tags', {
+    next: { revalidate: 3600 },
+  })
   const { tags } = (await res.json()) as TagsResponse
 
   return tags || []

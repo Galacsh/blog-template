@@ -5,6 +5,7 @@ import { AppFooter } from '@/components/app-footer'
 import { QuickScrollButton } from '@/components/quick-scroll-button'
 import { pretendard, jetbrainsMono } from '@/app/fonts'
 import { imageContentType, imageSize } from '@/lib/og/image'
+import { config } from '@/lib/config'
 import './globals.css'
 
 import type { ReactNode } from 'react'
@@ -15,13 +16,13 @@ type Props = Readonly<{
 }>
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.BASE_URL),
-  title: process.env.APP_NAME,
-  description: process.env.APP_DESCRIPTION,
+  metadataBase: new URL(config.baseUrl),
+  title: config.name,
+  description: config.description,
   openGraph: {
     images: [
       {
-        alt: process.env.APP_NAME,
+        alt: config.name,
         type: imageContentType,
         width: imageSize.width,
         height: imageSize.height,

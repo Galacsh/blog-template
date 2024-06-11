@@ -8,6 +8,7 @@ import './github-light.scss'
 
 import type { Metadata } from 'next'
 import { imageContentType, imageSize } from '@/lib/og/image'
+import { config } from '@/lib/config'
 
 type Props = Readonly<{
   params: {
@@ -22,10 +23,10 @@ export function generateMetadata({ params }: Props): Metadata {
   if (!post) throw new Error('Post not found.')
 
   return {
-    title: `${post.title} | ${process.env.APP_NAME}`,
+    title: `${post.title} | ${config.name}`,
     description: post.description,
     openGraph: {
-      title: `${post.title} | ${process.env.APP_NAME}`,
+      title: `${post.title} | ${config.name}`,
       description: post.description,
       images: [
         {

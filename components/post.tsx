@@ -1,8 +1,9 @@
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { format } from 'date-fns'
+import { CopyToClipboard } from '@/components/post-share-button'
+import { config } from '@/lib/config'
 
 import type { Post as PostType } from '@/lib/types'
-import { CopyToClipboard } from './post-share-button'
 
 type Props = Readonly<{
   data: PostType
@@ -10,7 +11,7 @@ type Props = Readonly<{
 
 export function Post({ data }: Props) {
   const { title, date, slug, tags, content } = data
-  const url = process.env.BASE_URL + '/posts/' + slug.full
+  const url = config.baseUrl + '/posts/' + slug.full
 
   return (
     <>

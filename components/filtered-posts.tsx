@@ -8,6 +8,7 @@ import { useSearch } from '@/lib/hooks/use-search'
 import { parse } from 'date-fns'
 
 import type { PreviewResponse, PreviewDateParsed, SortBy, SortOrder, Tag } from '@/lib/types'
+import { config } from '@/lib/config'
 
 export function FilteredPosts() {
   const [posts, setPosts] = useState<PreviewDateParsed[]>()
@@ -157,7 +158,9 @@ function NoPostsFound() {
  * Fetch and parse posts
  */
 async function getPosts(): Promise<PreviewDateParsed[]> {
-  const res = await fetch('/api/posts', { next: { revalidate: 3600 } })
+  const res = await fetch(config.basePath + '/api/posts', {
+    next: { revalidate: 3600 },
+  })
   const { posts } = (await res.json()) as PreviewResponse
 
   if (posts == null) return []

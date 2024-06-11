@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {
     "build": "npm run markdown && next build",
+    "deploy": "npm run build && node scripts/deploy.js",
     "dev": "concurrently \"npm:markdown -- watch\" \"next dev\"",
     "lint": "next lint",
     "lint-fix": "next lint --fix && prettier . --write",
     "serve": "serve out",
     "start": "npm run dev",
-    "markdown": "node markdown/process.js"
+    "markdown": "node scripts/markdown.js"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.0.4",
