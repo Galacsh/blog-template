@@ -61,10 +61,7 @@ export default function PostPage({ params }: Props) {
           <RelatedPosts posts={post.relatedPosts} />
         </aside>
         {/* Post */}
-        <article
-          id="post"
-          className="w-full font-medium flex-1 max-w-2xl px-4 mt-12 xl:mt-16 mb-16"
-        >
+        <article id="post" className="w-full flex-1 max-w-2xl px-4 mt-12 xl:mt-16 mb-16">
           <Post data={post} />
         </article>
         {/* On this page */}
