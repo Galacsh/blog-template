@@ -9,7 +9,7 @@ export function Anchor({ href, children }: ComponentProps<'a'>) {
   // External link
   if (href == null || href.includes('://')) {
     return (
-      <a className={className} href={href}>
+      <a className={className} href={href} target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     )
