@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'fs'
+import { readFileSync, readdirSync, writeFileSync, mkdirSync, realpathSync } from 'fs'
 import { join, parse, relative, sep } from 'path'
 import { VFile } from 'vfile'
 import { matter } from 'vfile-matter'
@@ -43,6 +43,8 @@ import 'dotenv/config'
 // == Variables ==
 // ===============
 
+const wd = realpathSync(process.cwd())
+
 /**
  * Root directory of markdown files
  * @type {string}
@@ -75,6 +77,7 @@ if (process.argv.includes('watch')) {
   const watcher = chokidar.watch(join(postsDir, '**/*.md'), {
     persistent: true,
     followSymlinks: true,
+    ignored: walkIgnore,
   })
 
   watcher.on('add', onChange)
@@ -90,8 +93,17 @@ else {
 // ===========================================================
 
 /**
+ * Ignore path.
+ * @param {string} path
+ */
+function walkIgnore(path) {
+  if (path.endsWith('.git') || path.endsWith('node_modules')) return true
+  return realpathSync(path) === wd
+}
+
+/**
  * On 'add' or 'change' event, process the file and schedule update.
- * @param path {string}
+ * @param {string} path
  */
 function onChange(path) {
   processFile(path)
@@ -100,7 +112,7 @@ function onChange(path) {
 
 /**
  * On 'unlink' event, delete the file from the tree and schedule update.
- * @param path {string}
+ * @param {string} path
  */
 function onDelete(path) {
   const slug = pathToSlug(path)
@@ -110,7 +122,7 @@ function onDelete(path) {
 
 /**
  * Process file and update tree.
- * @param path {string}
+ * @param {string} path
  */
 function processFile(path) {
   const file = loadFile(path)
@@ -130,14 +142,15 @@ function processFile(path) {
 
 /**
  * Walk through directory and call `callback` for each file.
- * @param dir {string}
- * @param callback {(path: string) => void}
+ * @param {string} dir
+ * @param {(path: string) => void} callback
  */
 function walkDir(dir, callback) {
   const items = readdirSync(dir, { encoding: 'utf8', withFileTypes: true })
   items.forEach((item) => {
     const filePath = join(item.parentPath, item.name)
     if (item.isDirectory()) {
+      if (walkIgnore(filePath)) return
       walkDir(filePath, callback)
     } else if (item.isFile()) {
       callback(filePath)
