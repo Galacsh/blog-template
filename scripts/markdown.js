@@ -276,7 +276,7 @@ function deleteByArr(obj, arr) {
   else if (obj.children[key] == null) return
 
   if (arr.length === 1) {
-    delete obj.children[key]
+    delete obj.children[key].post
   } else {
     deleteByArr(obj.children[key], arr.slice(1))
   }
@@ -315,10 +315,14 @@ function insertTree(tree, file) {
  * @param {PostTree} parent
  */
 function visit(tree, callback, parent = tree) {
+  if (tree.post) {
+    callback(tree.post, parent)
+  }
   if (tree.children) {
     Object.values(tree.children).forEach((child) => visit(child, callback, tree))
-  } else {
-    if (!tree.post) throw new Error('Found empty node.')
-    else callback(tree.post, parent)
+  }
+  // Unexpected behavior
+  if (tree.post == null && tree.children == null) {
+    throw new Error('Found empty node.')
   }
 }

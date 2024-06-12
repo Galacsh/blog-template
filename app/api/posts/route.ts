@@ -10,15 +10,16 @@ export async function GET() {
 }
 
 function flatten(tree: PostTree): PostInfo[] {
-  if (tree.children == null) return []
+  const result: PostInfo[] = []
 
-  return Object.values(tree.children).flatMap((child) => {
-    if (!child.children) {
-      return child.post as PostInfo
-    } else {
-      return flatten(child)
-    }
+  if (tree.post) result.push(tree.post)
+  if (tree.children == null) return result
+
+  Object.values(tree.children).forEach((child) => {
+    result.push(...flatten(child))
   })
+
+  return result
 }
 
 function toPreview(post: PostInfo): Preview {
