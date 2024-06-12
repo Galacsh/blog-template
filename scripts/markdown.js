@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, writeFileSync } from 'fs'
+import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'fs'
 import { join, parse, relative, sep } from 'path'
 import { VFile } from 'vfile'
 import { matter } from 'vfile-matter'
@@ -187,6 +187,7 @@ function update() {
   })
 
   // save results
+  mkdirSync(results, { recursive: true })
   writeFileSync(join(results, 'slugs.json'), JSON.stringify(slugs, null, 2))
   writeFileSync(join(results, 'tags.json'), JSON.stringify(Array.from(tags), null, 2))
   writeFileSync(join(results, 'posts.json'), JSON.stringify(postTree, null, 2))
