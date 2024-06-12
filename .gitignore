@@ -37,6 +37,8 @@ next-env.d.ts
 
 # IDE
 /.idea
+/.obsidian
+/.vscode
 
 # Posts
 /posts
