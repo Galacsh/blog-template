@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, writeFileSync, mkdirSync, realpathSync } from 'fs'
+import { existsSync, readFileSync, readdirSync, writeFileSync, mkdirSync, realpathSync } from 'fs'
 import { join, parse, relative, sep } from 'path'
 import { VFile } from 'vfile'
 import { matter } from 'vfile-matter'
@@ -98,6 +98,10 @@ else {
  */
 function walkIgnore(path) {
   if (path.endsWith('.git') || path.endsWith('node_modules')) return true
+
+  // if path doesn't exist, return false
+  if (!existsSync(path)) return false
+
   return realpathSync(path) === wd
 }
 
