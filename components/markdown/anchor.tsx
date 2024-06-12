@@ -23,6 +23,9 @@ export function Anchor({ href, children }: ComponentProps<'a'>) {
 }
 
 function internalLink(href: string) {
+  // handle heading links
+  if (href.startsWith('#')) return href
+
   const isPrefixed = ['/', '/posts', 'posts/'].includes(href)
   let parts = href.split('/')
 
