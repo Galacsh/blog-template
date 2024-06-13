@@ -46,8 +46,8 @@ export function FilteredPosts() {
   const compare = useCallback(
     (a: PreviewDateParsed, b: PreviewDateParsed) => {
       let result = 0
-      const aValue = a[sort]
-      const bValue = b[sort]
+      const aValue = comparableValue(a[sort])
+      const bValue = comparableValue(b[sort])
       const aExists = aValue != null
       const bExists = bValue != null
 
@@ -56,11 +56,11 @@ export function FilteredPosts() {
       if (aExists && !bExists) return -1
       // compare
       if (aExists && bExists) {
-        result = aValue < bValue ? -1 : 1
+        result = ascending(aValue, bValue)
       }
-      // if nothing, compare title
-      else {
-        result = a.title < b.title ? -1 : 1
+      // if nothing or same, compare title
+      if (result === 0) {
+        return ascending(a.title.toLowerCase(), b.title.toLowerCase())
       }
 
       return order === 'asc' ? result : -result
@@ -205,6 +205,27 @@ const filterTags = (p: PreviewDateParsed, selectedTagsSet: Set<Tag>) => {
   if (!p.tags) return false
 
   return p.tags.some((t) => selectedTagsSet.has(t))
+}
+
+// =================
+// == Sort helper ==
+// =================
+
+function ascending(a: string | number, b: string | number) {
+  return a < b ? -1 : a === b ? 0 : 1
+}
+
+/**
+ * Convert value to comparable value.
+ *
+ * - string -> lowercase
+ * - Date -> milliseconds
+ * - undefined -> undefined
+ */
+function comparableValue(val: string | Date | undefined) {
+  if (val == null) return val
+  if (val instanceof Date) return val.getTime()
+  return val.toLowerCase()
 }
 
 // ======================================

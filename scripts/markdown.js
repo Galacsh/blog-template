@@ -196,6 +196,9 @@ function update() {
       }
     })
 
+    // sort related posts
+    post.relatedPosts.sort((a, b) => stringAscending(a.title, b.title))
+
     // extract tags
     post.tags?.forEach((tag) => tags.add(tag))
 
@@ -343,4 +346,18 @@ function visit(tree, callback, parent = tree) {
   if (tree.post == null && tree.children == null) {
     throw new Error('Found empty node.')
   }
+}
+
+/**
+ * Compare function to sort string in ascending order.
+ * Compares strings in lowercase.
+ *
+ * @param {string} a
+ * @param {string} b
+ * @returns {number}
+ */
+function stringAscending(a, b) {
+  const aLower = a.toLowerCase()
+  const bLower = b.toLowerCase()
+  return aLower < bLower ? -1 : 1
 }
