@@ -62,6 +62,9 @@ Create an orphan branch.
 ```bash
 git checkout --orphan content
 
+# Unstage all files
+git rm --cached -r .
+
 # Use .gitignore of this repository for convenience
 git add .gitignore
 git commit -m "initial commit"
