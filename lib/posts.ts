@@ -1,5 +1,5 @@
 import _posts from '@/markdown/posts.json'
-import slugs from '@/markdown/slugs.json'
+import _slugs from '@/markdown/slugs.json'
 
 import { readFileSync } from 'fs'
 import { join } from 'path'
@@ -56,6 +56,7 @@ const processor = unified()
   .use(rehypeSlug)
 
 const posts = _posts as unknown as PostTree
+const slugs = _slugs as unknown as string[][]
 
 /**
  * Get all slugs.
