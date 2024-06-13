@@ -1,7 +1,8 @@
 import gh from 'gh-pages'
 
-function onDeployed() {
-  console.log('Deployed! 🚀')
+function onDeployed(err) {
+  if (err) console.error(err)
+  else console.log('Deployed! 🚀')
 }
 
 gh.publish(
