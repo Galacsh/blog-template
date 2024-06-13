@@ -1,5 +1,5 @@
 ---
-title: 01. Introduction
+title: Introduction
 description: Introduction to this blog template. Includes a brief overview of the template and its features.
 date: 2024-06-13
 tags:

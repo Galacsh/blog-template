@@ -1,5 +1,5 @@
 ---
-title: "05. Run, Build, and Deploy"
+title: "04. Run, Build, and Deploy"
 description: "How to run, build, and deploy your blog."
 date: 2024-06-12
 tags:

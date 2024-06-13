@@ -1,5 +1,5 @@
 ---
-title: 04. Why Ignore /posts and /public/assets?
+title: 03. Why Ignore /posts and /public/assets?
 description: Explains why /posts and /public/assets are ignored by default.
 date: 2024-06-12
 tags:

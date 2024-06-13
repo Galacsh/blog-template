@@ -1,5 +1,5 @@
 ---
-title: 02. Installation
+title: 01. Installation
 description: Ways to install this blog template and manage content.
 date: 2024-06-12
 tags:

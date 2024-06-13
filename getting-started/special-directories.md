@@ -1,5 +1,5 @@
 ---
-title: 03. Special Directories
+title: 02. Special Directories
 description: Explains about /posts, /public/assets, and /markdown.
 date: 2024-06-12
 tags:
