@@ -3,5 +3,11 @@
   "installCommand": "",
   "buildCommand": "",
   "devCommand": "",
-  "outputDirectory": "out"
+  "outputDirectory": "out",
+  "rewrites": [
+    {
+      "source": "/:path(posts.*)",
+      "destination": "/:path.html"
+    }
+  ]
 }
