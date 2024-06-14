@@ -17,13 +17,13 @@ export function PostPreviewItem({ slug, title, description, date, tags }: Props)
     <Link href={'/posts/' + slug} className="relative block w-full group focus:outline-none z-[1]">
       {/* Date */}
       {date && (
-        <span className="flex flex-row items-center space-x-2 text-xs text-muted-foreground/60">
+        <span className="flex flex-row items-center space-x-2 mb-1 text-xs text-muted-foreground/60">
           <CalendarIcon className="size-3" />
           <span>{format(date, 'PPP')}</span>
         </span>
       )}
       {/* Title */}
-      <span className="block font-bold text-foreground ">{title}</span>
+      <span className="block mb-1 font-bold text-foreground">{title}</span>
       {/* Description */}
       <span className="text-sm text-foreground line-clamp-3 w-full h-full">{description}</span>
       {/* Tags */}
