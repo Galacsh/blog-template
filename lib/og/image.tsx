@@ -21,7 +21,7 @@ export function image(text: string) {
             height: '100%',
             width: '100%',
             fontSize: 60,
-            fontFamily: '"JetBrains Mono"',
+            fontFamily: '"JetBrains Mono", Pretendard',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -105,8 +105,13 @@ export function image(text: string) {
         fonts: [
           {
             name: 'JetBrains Mono',
-            data: fontFile,
+            data: jetbrainsMono,
             style: 'italic',
+            weight: 800,
+          },
+          {
+            name: 'Pretendard',
+            data: pretendard,
             weight: 800,
           },
         ],
@@ -115,8 +120,10 @@ export function image(text: string) {
   } catch (e) {}
 }
 
-const fontFile = readFileSync(
+const jetbrainsMono = readFileSync(
   join(fileURLToPath(import.meta.url), '../JetBrainsMono-ExtraBoldItalic.ttf')
 )
+
+const pretendard = readFileSync(join(fileURLToPath(import.meta.url), '../Pretendard-ExtraBold.otf'))
 
 const AUTHOR = process.env.NEXT_PUBLIC_AUTHOR
