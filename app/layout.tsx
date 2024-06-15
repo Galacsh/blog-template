@@ -31,6 +31,7 @@ export const metadata: Metadata = {
       },
     ],
   },
+  verification: config.verification,
 }
 
 export default function AppLayout({ children }: Props) {

@@ -17,6 +17,8 @@ declare global {
       NEXT_PUBLIC_GITHUB?: string
       NEXT_PUBLIC_LINKEDIN?: string
       NEXT_PUBLIC_GOOGLE_ANALYTICS?: string
+      NEXT_PUBLIC_VERIFICATION_GOOGLE?: string
+      NEXT_PUBLIC_VERIFICATION_NAVER?: string
     }
   }
 }

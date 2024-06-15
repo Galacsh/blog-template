@@ -44,6 +44,13 @@ const github = undefinedIfEmpty(process.env.NEXT_PUBLIC_GITHUB)
 const linkedin = undefinedIfEmpty(process.env.NEXT_PUBLIC_LINKEDIN)
 const gaId = undefinedIfEmpty(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS)
 
+const googleVerification = undefinedIfEmpty(process.env.NEXT_PUBLIC_VERIFICATION_GOOGLE)
+const naverVerification = undefinedIfEmpty(process.env.NEXT_PUBLIC_VERIFICATION_NAVER)
+const verification = {
+  google: googleVerification,
+  other: naverVerification != null ? { 'naver-site-verification': naverVerification } : undefined,
+}
+
 export const config = {
   name,
   shortName,
@@ -58,4 +65,5 @@ export const config = {
   linkedin,
   copyrightRange,
   gaId,
+  verification,
 }
