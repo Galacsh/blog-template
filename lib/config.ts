@@ -5,6 +5,16 @@ function errorIfUndefined(name: string, value: string | undefined) {
   return value
 }
 
+function undefinedIfEmpty(value: string | undefined) {
+  if (value == null) return undefined
+  else if (value === '') return undefined
+  return value
+}
+
+// ===============
+// == Essential ==
+// ===============
+
 const name = errorIfUndefined('NEXT_PUBLIC_APP_NAME', process.env.NEXT_PUBLIC_APP_NAME)
 const shortName = errorIfUndefined(
   'NEXT_PUBLIC_APP_SHORT_NAME',
@@ -21,12 +31,18 @@ const author = errorIfUndefined('NEXT_PUBLIC_AUTHOR', process.env.NEXT_PUBLIC_AU
 const about = errorIfUndefined('NEXT_PUBLIC_ABOUT', process.env.NEXT_PUBLIC_ABOUT)
 const contact = errorIfUndefined('NEXT_PUBLIC_CONTACT', process.env.NEXT_PUBLIC_CONTACT)
 const keywords = errorIfUndefined('NEXT_PUBLIC_KEYWORDS', process.env.NEXT_PUBLIC_KEYWORDS)
-const github = process.env.NEXT_PUBLIC_GITHUB
-const linkedin = process.env.NEXT_PUBLIC_LINKEDIN
 const copyrightRange = errorIfUndefined(
   'NEXT_PUBLIC_COPYRIGHT_RANGE',
   process.env.NEXT_PUBLIC_COPYRIGHT_RANGE
 )
+
+// ==============
+// == Optional ==
+// ==============
+
+const github = undefinedIfEmpty(process.env.NEXT_PUBLIC_GITHUB)
+const linkedin = undefinedIfEmpty(process.env.NEXT_PUBLIC_LINKEDIN)
+const gaId = undefinedIfEmpty(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS)
 
 export const config = {
   name,
@@ -41,4 +57,5 @@ export const config = {
   github,
   linkedin,
   copyrightRange,
+  gaId,
 }

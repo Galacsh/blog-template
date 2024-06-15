@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from '@next/third-parties/google'
 import { ThemeProvider } from 'next-themes'
 import { Toaster } from '@/components/ui/toaster'
 import { AppHeader } from '@/components/app-header'
@@ -55,6 +56,7 @@ export default function AppLayout({ children }: Props) {
           <QuickScrollButton className="fixed bottom-4 right-4 z-40" />
         </ThemeProvider>
       </body>
+      {config.gaId && <GoogleAnalytics gaId={config.gaId} />}
     </html>
   )
 }
