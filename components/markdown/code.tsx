@@ -8,7 +8,7 @@ export function Pre({ className, children }: ComponentProps<'pre'>) {
       <pre
         className={cn(
           className,
-          'font-mono font-bold',
+          'font-mono font-semibold',
           'text-sm leading-normal',
           'py-4 overflow-auto'
         )}
@@ -24,7 +24,7 @@ export function Code({ className, children }: React.ComponentProps<'code'>) {
     <code
       className={cn(
         className,
-        'font-mono font-bold text-active',
+        'font-mono font-medium text-active',
         'break-words text-[85%] [pre_&]:text-sm leading-normal',
         'px-[0.4em] py-[0.2em] [pre_&]:p-0',
         'rounded-md [pre_&]:rounded-none'
