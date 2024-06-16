@@ -4,7 +4,7 @@ import type { ComponentProps } from 'react'
 
 export function Pre({ className, children }: ComponentProps<'pre'>) {
   return (
-    <div className="code-block px-4 mb-4 border rounded-md">
+    <div className="code-block px-4 mb-5 border rounded-md">
       <pre
         className={cn(
           className,

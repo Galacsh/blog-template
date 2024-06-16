@@ -11,7 +11,7 @@ import type { ComponentProps } from 'react'
 
 export function Table({ style, children }: ComponentProps<'table'>) {
   return (
-    <div className="rounded-md border mb-4 w-fit max-w-full overflow-auto">
+    <div className="rounded-md border mb-5 w-fit max-w-full overflow-auto">
       <TableComponent style={style} className="min-w-96 border-spacing-4">
         {children}
       </TableComponent>
