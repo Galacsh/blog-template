@@ -40,6 +40,8 @@ and the [VitePress - Guide](https://vitepress.dev/guide/what-is-vitepress).
 - [x] On this page (Table of contents)
 - [x] [Draft](https://galacsh.github.io/blog-templatefeatures/draft.md)
 - [x] Error page
+- [x] `sitemap.xml`
+- [x] `robots.txt`
 
 ---
 
