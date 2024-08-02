@@ -1,4 +1,4 @@
 User-Agent: *
 Allow: /
 
-Sitemap: https://galacsh.github.io/blog-template/sitemap.xml
+Sitemap: https://galacsh-blog-template.vercel.app/sitemap.xml
