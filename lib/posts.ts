@@ -15,6 +15,7 @@ import rehypeHighlight from 'rehype-highlight'
 import rehypeSlug from 'rehype-slug'
 import { visit } from 'unist-util-visit'
 import { toJsxRuntime } from 'hast-util-to-jsx-runtime'
+import { languages } from '@/lib/highlight-languages'
 import components from '@/components/markdown'
 
 import type { JSX } from 'react'
@@ -52,7 +53,7 @@ const processor = unified()
   .use(remarkGfm)
   .use(remarkRehype, { allowDangerousHtml: true })
   .use(rehypeRaw)
-  .use(rehypeHighlight, { detect: true })
+  .use(rehypeHighlight, { detect: true, languages })
   .use(rehypeSlug)
 
 const posts = _posts as unknown as PostTree
