@@ -55,7 +55,7 @@ export default function PostPage({ params }: Props) {
           right={<OnThisPage items={post.toc} />}
         />
       </div>
-      <div className="flex flex-row items-start justify-center">
+      <div className="flex flex-row items-start justify-between">
         {/* Related posts */}
         <aside className="sticky top-0 max-h-screen w-full max-w-72 hidden xl:flex p-4 mr-2 mt-12 mb-12 z-30">
           <RelatedPosts posts={post.relatedPosts} />
